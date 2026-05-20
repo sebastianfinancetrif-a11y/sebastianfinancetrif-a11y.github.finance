@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sebastian Trif · M&A Finance</title>
+  <meta name="description" content="M&A Transaction Support Consultant. Ex-Deutsche Bank CIB. Mentoring, análisis y consultoría financiera para profesionales y empresas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #0d1117;
+      --navy-mid:   #161c26;
+      --navy-light: #1e2738;
+      --gold:       #c9a96e;
+      --gold-light: #e8d5a3;
+      --gold-muted: #8a6f45;
+      --white:      #f5f2ed;
+      --white-dim:  rgba(245,242,237,0.65);
+      --white-faint:rgba(245,242,237,0.10);
+      --border:     rgba(201,169,110,0.18);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden}
+
+    /* ── NAV ── */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 4rem;backdrop-filter:blur(20px);background:rgba(13,17,23,0.80);border-bottom:1px solid var(--border);transition:padding .3s}
+    .nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;letter-spacing:.06em;color:var(--gold);text-decoration:none}
+    .nav-links{display:flex;gap:2.5rem;list-style:none}
+    .nav-links a{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white-dim);text-decoration:none;transition:color .3s}
+    .nav-links a:hover{color:var(--gold)}
+    .nav-cta{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);background:var(--gold);border:none;padding:.6rem 1.6rem;cursor:pointer;transition:opacity .3s;text-decoration:none;white-space:nowrap}
+    .nav-cta:hover{opacity:.85}
+    .nav-mobile-btn{display:none;background:none;border:none;color:var(--white);font-size:1.4rem;cursor:pointer}
+
+    /* ── HERO ── */
+    #inicio{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 4rem;padding-top:80px;position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 55% 70% at 75% 50%,rgba(201,169,110,.06) 0%,transparent 70%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(10,20,50,.7) 0%,transparent 60%)}
+    .hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(201,169,110,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(201,169,110,.035) 1px,transparent 1px);background-size:60px 60px}
+    .hero-content{position:relative;z-index:1}
+    .hero-label{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:.8rem;opacity:0;animation:fadeUp .8s .1s forwards}
+    .hero-label::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+    .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,4.5vw,4.2rem);font-weight:300;line-height:1.09;color:var(--white);margin-bottom:.5rem;opacity:0;animation:fadeUp .8s .25s forwards}
+    .hero-title em{font-style:italic;color:var(--gold)}
+    .hero-subtitle{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-muted);margin-bottom:1.8rem;opacity:0;animation:fadeUp .8s .35s forwards}
+    .hero-desc{font-size:.95rem;line-height:1.8;color:var(--white-dim);max-width:430px;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s .45s forwards}
+    .hero-btns{display:flex;gap:1.2rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .55s forwards}
+    .btn-primary{background:var(--gold);color:var(--navy);padding:.85rem 2rem;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:pointer;text-decoration:none;transition:opacity .3s;display:inline-block;font-family:'DM Sans',sans-serif}
+    .btn-primary:hover{opacity:.85}
+    .btn-outline{border:1px solid var(--border);color:var(--white-dim);padding:.85rem 2rem;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;background:transparent;cursor:pointer;text-decoration:none;transition:border-color .3s,color .3s;display:inline-block;font-family:'DM Sans',sans-serif}
+    .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+    .hero-badges{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .65s forwards}
+    .badge{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--white-dim);padding:.35rem .9rem;border:1px solid var(--white-faint)}
+
+    /* hero image */
+    .hero-img-side{position:relative;z-index:1;display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeUp .9s .3s forwards}
+    .hero-frame{position:relative;width:360px;height:440px}
+    .hero-frame::before{content:'';position:absolute;top:18px;left:18px;right:-18px;bottom:-18px;border:1px solid var(--border);z-index:0}
+    .hero-frame::after{content:'';position:absolute;top:-8px;right:-8px;width:55px;height:55px;border-top:2px solid var(--gold);border-right:2px solid var(--gold)}
+    .hero-photo{width:100%;height:100%;object-fit:cover;object-position:top center;position:relative;z-index:1;filter:grayscale(15%) contrast(1.04)}
+    .hero-tag{position:absolute;bottom:-1.8rem;left:0;z-index:2;background:var(--gold);color:var(--navy);padding:.45rem 1.1rem;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+
+    /* ── STATS ── */
+    .stats-bar{background:var(--navy-mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem 4rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+    .stat{text-align:center;padding:.5rem;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none}
+    .stat-num{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;color:var(--gold);line-height:1}
+    .stat-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--white-dim);margin-top:.3rem}
+
+    /* ── SECTION COMMONS ── */
+    section{padding:6rem 4rem}
+    .section-label{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.8rem}
+    .section-label::before{content:'';display:block;width:18px;height:1px;background:var(--gold)}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,2.8rem);font-weight:300;line-height:1.15;margin-bottom:1rem}
+    .section-title em{font-style:italic;color:var(--gold)}
+    .section-desc{font-size:.92rem;line-height:1.8;color:var(--white-dim);max-width:520px;margin-bottom:3rem}
+
+    /* ── SERVICIOS ── */
+    #servicios{background:var(--navy)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1.5px solid var(--border)}
+    .service-card{background:var(--navy);padding:2.2rem 1.8rem;transition:background .3s;position:relative;overflow:hidden;cursor:pointer;display:flex;flex-direction:column}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+    .service-card:hover{background:var(--navy-light)}
+    .service-card:hover::before{transform:scaleX(1)}
+    .service-num{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--gold-muted);margin-bottom:1.2rem}
+    .service-title{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;margin-bottom:.7rem}
+    .service-desc{font-size:.8rem;line-height:1.7;color:var(--white-dim);flex:1}
+    .service-price{margin-top:1.3rem;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border-top:1px solid var(--border);padding-top:.9rem}
+    .service-arrow{margin-top:.8rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-muted);transition:color .3s}
+    .service-card:hover .service-arrow{color:var(--gold)}
+    .coming-soon-badge{display:inline-block;margin-top:.5rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-muted);border:1px solid var(--border);padding:.2rem .5rem}
+
+    /* ── SOBRE MÍ ── */
+    #nosotros{background:var(--navy-mid)}
+    .about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start}
+    .about-photo-wrap{position:relative}
+    .about-photo-wrap::after{content:'';position:absolute;top:-10px;left:-10px;width:45px;height:45px;border-top:2px solid var(--gold);border-left:2px solid var(--gold)}
+    .about-photo{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top center;filter:grayscale(20%) contrast(1.05)}
+    .about-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(13,17,23,.92));padding:2rem 1.4rem 1.4rem}
+    .about-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:500}
+    .about-role{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-top:.3rem}
+    .about-bio{font-size:.9rem;line-height:1.85;color:var(--white-dim);margin-bottom:1.8rem}
+    .about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+    .highlight{border-left:2px solid var(--gold);padding-left:.9rem}
+    .highlight-label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-muted);margin-bottom:.25rem}
+    .highlight-value{font-size:.85rem;color:var(--white)}
+    .credentials{border-top:1px solid var(--border);padding-top:1.3rem}
+    .credential{display:flex;align-items:baseline;gap:.7rem;padding:.5rem 0;border-bottom:1px solid var(--white-faint)}
+    .cred-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0;margin-top:4px}
+    .cred-text{font-size:.8rem;color:var(--white-dim);line-height:1.45}
+
+    /* ── CONTACTO ── */
+    #contacto{background:var(--navy)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:start}
+    .contact-tagline{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:300;line-height:1.35;margin-bottom:1.5rem}
+    .contact-tagline em{font-style:italic;color:var(--gold)}
+    .contact-items{margin-top:1.8rem}
+    .contact-item{display:flex;gap:1rem;padding:1.1rem 0;border-bottom:1px solid var(--border);align-items:center}
+    .ci-icon{color:var(--gold);font-size:.95rem;width:18px;text-align:center;flex-shrink:0}
+    .ci-label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-muted);display:block}
+    .ci-value{font-size:.85rem;color:var(--white-dim);margin-top:.2rem}
+    .ci-value a{color:var(--white-dim);text-decoration:none}
+    .ci-value a:hover{color:var(--gold)}
+
+    /* form */
+    .form-wrap{background:var(--navy-mid);border:1px solid var(--border);padding:2.3rem}
+    .form-title{font-family:'Cormorant Garamond',serif;font-size:1.35rem;margin-bottom:.4rem}
+    .form-sub{font-size:.78rem;color:var(--white-dim);margin-bottom:1.8rem}
+    .form-group{margin-bottom:1.1rem}
+    .form-label{display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-muted);margin-bottom:.45rem}
+    .form-input,.form-select,.form-textarea{width:100%;background:var(--navy);border:1px solid var(--border);color:var(--white);padding:.75rem .9rem;font-family:'DM Sans',sans-serif;font-size:.85rem;transition:border-color .3s;outline:none;appearance:none}
+    .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+    .form-select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238a6f45'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center}
+    option{background:var(--navy-mid)}
+    .form-textarea{resize:vertical;min-height:90px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    .form-submit{width:100%;background:var(--gold);color:var(--navy);padding:.95rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:opacity .3s;margin-top:.4rem;font-family:'DM Sans',sans-serif;font-weight:400}
+    .form-submit:hover{opacity:.85}
+    .form-note{font-size:.68rem;color:var(--white-dim);margin-top:.7rem;text-align:center}
+    .form-success{display:none;text-align:center;padding:2rem}
+    .form-success-icon{font-size:2rem;margin-bottom:.8rem}
+    .form-success-title{font-family:'Cormorant Garamond',serif;font-size:1.4rem;margin-bottom:.4rem;color:var(--gold)}
+    .form-success-text{font-size:.83rem;color:var(--white-dim)}
+
+    /* ── FOOTER ── */
+    footer{background:var(--navy-mid);border-top:1px solid var(--border);padding:1.8rem 4rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .footer-logo{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gold)}
+    .footer-links{display:flex;gap:2rem;flex-wrap:wrap}
+    .footer-links a{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--white-dim);text-decoration:none;transition:color .3s}
+    .footer-links a:hover{color:var(--gold)}
+    .footer-copy{font-size:.65rem;color:var(--white-dim)}
+
+    /* ── MODAL ── */
+    .modal-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(13,17,23,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center}
+    .modal-overlay.active{display:flex}
+    .modal-box{background:var(--navy-mid);border:1px solid var(--border);padding:2.8rem;max-width:500px;width:90%;position:relative}
+    .modal-close{position:absolute;top:1rem;right:1.2rem;background:none;border:none;color:var(--white-dim);font-size:1.3rem;cursor:pointer;line-height:1}
+    .modal-close:hover{color:var(--white)}
+    .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;margin-bottom:.4rem}
+    .modal-price{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1.3rem}
+    .modal-desc{font-size:.85rem;line-height:1.75;color:var(--white-dim);margin-bottom:1.8rem}
+    .modal-btn{display:block;text-align:center;background:var(--gold);color:var(--navy);padding:.85rem;text-decoration:none;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;transition:opacity .3s;font-family:'DM Sans',sans-serif;border:none;cursor:pointer;width:100%}
+    .modal-btn:hover{opacity:.85}
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:900px){
+      nav{padding:1rem 1.5rem}
+      .nav-links{display:none}
+      .nav-mobile-btn{display:block}
+      #inicio{grid-template-columns:1fr;padding:1.5rem;padding-top:85px;gap:3rem}
+      .hero-img-side{order:-1}
+      .hero-frame{width:100%;height:300px}
+      section{padding:3.5rem 1.5rem}
+      .stats-bar{grid-template-columns:1fr 1fr;padding:1.5rem}
+      .stat{border-right:none;border-bottom:1px solid var(--border);padding-bottom:.8rem}
+      .stat:nth-child(odd){border-right:1px solid var(--border)}
+      .stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
+      .services-grid{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr;gap:2rem}
+      .contact-grid{grid-template-columns:1fr;gap:2.5rem}
+      .form-row{grid-template-columns:1fr}
+      footer{flex-direction:column;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#inicio">Sebastian Trif</a>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Sobre mí</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="nav-cta" href="#contacto">Consulta gratuita</a>
+  <button class="nav-mobile-btn" onclick="toggleMobileMenu()">☰</button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" style="display:none;position:fixed;top:60px;left:0;right:0;z-index:99;background:var(--navy-mid);border-bottom:1px solid var(--border);padding:1.5rem;flex-direction:column;gap:1.2rem">
+  <a href="#inicio" onclick="closeMobileMenu()" style="font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white-dim);text-decoration:none">Inicio</a>
+  <a href="#servicios" onclick="closeMobileMenu()" style="font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white-dim);text-decoration:none">Servicios</a>
+  <a href="#nosotros" onclick="closeMobileMenu()" style="font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white-dim);text-decoration:none">Sobre mí</a>
+  <a href="#contacto" onclick="closeMobileMenu()" style="font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white-dim);text-decoration:none">Contacto</a>
+</div>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-label">M&amp;A · Finance · Advisory</p>
+    <h1 class="hero-title">Criterio real<br>para decisiones<br><em>financieras</em></h1>
+    <p class="hero-subtitle">Siemens GBS · Ex-Deutsche Bank CIB · Barcelona</p>
+    <p class="hero-desc">Consultor de M&amp;A con experiencia en carve-outs, valoración y due diligence corporativa. Análisis sin humo para profesionales y empresas que necesitan criterio real.</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#servicios">Ver servicios</a>
+      <a class="btn-outline" href="#contacto">Contactar</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge">CAIA Level I</span>
+      <span class="badge">MSc Finance UPF-BSM</span>
+      <span class="badge">Top 5% CFA Challenge</span>
+      <span class="badge">GLG Expert Network</span>
+    </div>
+  </div>
+  <div class="hero-img-side">
+    <div class="hero-frame">
+      <img class="hero-photo" src="foto.jpg" alt="Sebastian Trif" onerror="this.style.background='var(--navy-light)';this.style.display='block'">
+      <span class="hero-tag">Sebastian Trif · M&amp;A Consultant</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Años en M&amp;A corporativo</div></div>
+  <div class="stat"><div class="stat-num">€5B+</div><div class="stat-label">En deals analizados</div></div>
+  <div class="stat"><div class="stat-num">DB · SIE</div><div class="stat-label">Deutsche Bank · Siemens</div></div>
+  <div class="stat"><div class="stat-num">UPF</div><div class="stat-label">MSc Finance &amp; Banking</div></div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-label">Servicios</div>
+  <h2 class="section-title">Lo que puedo<br><em>hacer por ti</em></h2>
+  <p class="section-desc">Desde una sesión de orientación hasta un análisis profesional completo. Sin humo, con criterio.</p>
+  <div class="services-grid">
+
+    <div class="service-card" onclick="openModal('mentoring')">
+      <div class="service-num">01</div>
+      <div class="service-title">Mentoring 1:1</div>
+      <div class="service-desc">Roadmap personalizado para entrar en IB, M&amp;A o PE. Sesiones quincenales con soporte continuo y seguimiento real de tu progreso.</div>
+      <div class="service-price">€200 – €400 / mes</div>
+      <div class="service-arrow">Reservar sesión →</div>
+    </div>
+
+    <div class="service-card" onclick="openModal('clases')">
+      <div class="service-num">02</div>
+      <div class="service-title">Clases Puntuales</div>
+      <div class="service-desc">Sesiones express de 1h para repasar CAIA L1, conceptos de valoración, modelado financiero o dudas concretas antes de una entrevista.</div>
+      <div class="service-price">€50 – €80 / sesión</div>
+      <div class="service-arrow">Reservar sesión →</div>
+    </div>
+
+    <div class="service-card" onclick="openModal('analisis')">
+      <div class="service-num">03</div>
+      <div class="service-title">Análisis de Empresa</div>
+      <div class="service-desc">Tesis de inversión profesional sobre la empresa que elijas. DCF, comparables, catalizadores y riesgos con el mismo rigor que en banca de inversión.</div>
+      <div class="service-price">€500 – €1.500</div>
+      <div class="service-arrow">Solicitar análisis →</div>
+    </div>
+
+    <div class="service-card" onclick="openModal('tutoria')">
+      <div class="service-num">04</div>
+      <div class="service-title">Tutoría IB Economics</div>
+      <div class="service-desc">Preparación para el International Baccalaureate en Economía y Finanzas. Clases adaptadas al nivel y objetivos del estudiante.</div>
+      <div class="service-price">€40 – €60 / hora</div>
+      <div class="service-arrow">Contactar →</div>
+    </div>
+
+    <div class="service-card" onclick="openModal('consultoria')">
+      <div class="service-num">05</div>
+      <div class="service-title">Consultoría Empresas</div>
+      <div class="service-desc">Apoyo en valoración, due diligence y modelado financiero para empresas en procesos de M&amp;A, captación de inversión o análisis estratégico.</div>
+      <div class="service-price">€2.000 – €10.000</div>
+      <div class="service-arrow">Solicitar propuesta →</div>
+    </div>
+
+    <div class="service-card coming-soon" style="pointer-events:none;opacity:.45">
+      <div class="service-num">06</div>
+      <div class="service-title">Curso de Valoración</div>
+      <div class="service-desc">DCF aplicado, comparables y LBO desde cero. Metodología profesional, sin teoría vacía. Lista de espera abierta.</div>
+      <div class="service-price">€200 – €400</div>
+      <div class="coming-soon-badge">Próximamente</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="nosotros">
+  <div class="about-grid">
+    <div class="about-photo-wrap">
+      <img class="about-photo" src="foto.jpg" alt="Sebastian Trif" onerror="this.style.background='var(--navy-light)'">
+      <div class="about-overlay">
+        <div class="about-name">Sebastian Trif</div>
+        <div class="about-role">M&amp;A Consultant · Finance Advisor</div>
+      </div>
+    </div>
+    <div class="about-content">
+      <div class="section-label">Sobre mí</div>
+      <h2 class="section-title">Experiencia real,<br><em>no teoría de manual</em></h2>
+      <p class="about-bio">Llevo más de tres años trabajando en M&amp;A corporativo real — carve-outs, deconsolidaciones y TSAs en Siemens GBS, y antes en Deutsche Bank CIB y Siemens Healthineers. Lo que enseño y analizo no viene de libros: viene de haber estado en el proceso.</p>
+      <p class="about-bio">Publico equity research independiente, participo en GLG Expert Network y compagino todo esto con mentoring a profesionales que quieren entrar en finance de verdad.</p>
+      <div class="about-highlights">
+        <div class="highlight"><div class="highlight-label">Formación</div><div class="highlight-value">MSc Finance &amp; Banking, UPF-BSM</div></div>
+        <div class="highlight"><div class="highlight-label">Certificaciones</div><div class="highlight-value">CAIA Level I · CFA Research</div></div>
+        <div class="highlight"><div class="highlight-label">Experiencia</div><div class="highlight-value">Siemens · Deutsche Bank · Healthineers</div></div>
+        <div class="highlight"><div class="highlight-label">Ubicación</div><div class="highlight-value">Barcelona, España</div></div>
+      </div>
+      <div class="credentials">
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">M&amp;A Transaction Support Consultant, Siemens GBS — carve-outs, TSAs, pricing de servicios</span></div>
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">Deutsche Bank CIB — Investment Banking, Barcelona</span></div>
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">Siemens Healthineers — Strategic Programs &amp; Financial Analysis</span></div>
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">Top 5% España, CFA Research Challenge (Telefónica)</span></div>
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">Equity research publicado: Lululemon, Vodafone, BBVA-Sabadell, Telefónica</span></div>
+        <div class="credential"><span class="cred-dot"></span><span class="cred-text">Consultor en GLG Expert Network — MedTech &amp; Finance</span></div>
+      </div>
+      <div style="margin-top:2rem">
+        <a class="btn-primary" href="https://www.linkedin.com/in/sebastian-iulian/" target="_blank">Ver perfil LinkedIn →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-label">Contacto</div>
+      <h2 class="section-title">¿Hablamos<br><em>sin compromiso?</em></h2>
+      <p class="contact-tagline">La primera consulta es <em>gratuita</em>.<br>Sin formularios eternos, sin venta agresiva.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <span class="ci-icon">✉</span>
+          <div><span class="ci-label">Email</span><div class="ci-value"><a href="mailto:sebastianfinance.trif@gmail.com">sebastianfinance.trif@gmail.com</a></div></div>
+        </div>
+        <div class="contact-item">
+          <span class="ci-icon">📍</span>
+          <div><span class="ci-label">Ubicación</span><div class="ci-value">Barcelona, España · Disponible remotamente</div></div>
+        </div>
+        <div class="contact-item">
+          <span class="ci-icon">in</span>
+          <div><span class="ci-label">LinkedIn</span><div class="ci-value"><a href="https://www.linkedin.com/in/sebastian-iulian/" target="_blank">Sebastian Trif</a></div></div>
+        </div>
+        <div class="contact-item">
+          <span class="ci-icon">⏱</span>
+          <div><span class="ci-label">Respuesta</span><div class="ci-value">En menos de 24h laborables</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="form-wrap">
+      <div id="formContent">
+        <div class="form-title">Envíame un mensaje</div>
+        <div class="form-sub">Cuéntame qué necesitas y te respondo con lo que puedo hacer por ti.</div>
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nombre *</label>
+              <input class="form-input" type="text" id="fname" required placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apellidos *</label>
+              <input class="form-input" type="text" id="lname" required placeholder="Tus apellidos">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email *</label>
+            <input class="form-input" type="email" id="email" required placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono (opcional)</label>
+            <input class="form-input" type="tel" id="phone" placeholder="+34 600 000 000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Servicio de interés *</label>
+            <select class="form-select" id="service" required>
+              <option value="">Selecciona un servicio</option>
+              <option value="mentoring">Mentoring 1:1</option>
+              <option value="clases">Clases Puntuales</option>
+              <option value="analisis">Análisis de Empresa</option>
+              <option value="tutoria">Tutoría IB Economics</option>
+              <option value="consultoria">Consultoría para Empresas</option>
+              <option value="curso">Curso de Valoración (lista espera)</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Cuéntame tu caso (opcional)</label>
+            <textarea class="form-textarea" id="message" placeholder="Describe brevemente qué necesitas o qué objetivo tienes..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Enviar mensaje</button>
+          <p class="form-note">Te respondo en menos de 24h. Sin spam, sin ventas automáticas.</p>
+        </form>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">✓</div>
+        <div class="form-success-title">Mensaje enviado</div>
+        <div class="form-success-text">Gracias por escribir. Te respondo en menos de 24h laborables.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Sebastian Trif</div>
+  <div class="footer-links">
+    <a href="#inicio">Inicio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Sobre mí</a>
+    <a href="#contacto">Contacto</a>
+    <a href="https://www.linkedin.com/in/sebastian-iulian/" target="_blank">LinkedIn</a>
+  </div>
+  <div class="footer-copy">© 2025 Sebastian Trif · Barcelona</div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-title" id="modalTitle"></div>
+    <div class="modal-price" id="modalPrice"></div>
+    <div class="modal-desc" id="modalDesc"></div>
+    <a class="modal-btn" href="#contacto" onclick="closeModalBtn()">Contactar para este servicio</a>
+  </div>
+</div>
+
+<script>
+  // Mobile menu
+  function toggleMobileMenu(){
+    const m=document.getElementById('mobileMenu');
+    m.style.display=m.style.display==='flex'?'none':'flex';
+  }
+  function closeMobileMenu(){
+    document.getElementById('mobileMenu').style.display='none';
+  }
+
+  // Modal data
+  const services={
+    mentoring:{title:'Mentoring 1:1',price:'€200 – €400 / mes',desc:'Roadmap personalizado para entrar en IB, M&A o PE. Definimos juntos dónde estás, dónde quieres llegar y el camino más directo. Sesiones quincenales de 60 minutos + soporte por mensaje entre sesiones. Acceso a mi red de contactos y revisión de CV/LinkedIn incluida.'},
+    clases:{title:'Clases Puntuales',price:'€50 – €80 / sesión (1h)',desc:'Sesión express de 60 minutos para repasar lo que necesites: CAIA L1, DCF, LBO, modelado financiero, preparación de entrevistas técnicas en IB/PE, o cualquier concepto concreto. Sin rodeos, directo al problema.'},
+    analisis:{title:'Análisis de Empresa',price:'€500 – €1.500',desc:'Tesis de inversión profesional sobre la empresa que elijas. Incluye: valoración DCF, análisis de comparables, catalizadores de valor, riesgos principales y conclusión con horizonte temporal. El mismo rigor que en banca de inversión.'},
+    tutoria:{title:'Tutoría IB Economics',price:'€40 – €60 / hora',desc:'Preparación especializada para el International Baccalaureate en Economía y Finanzas. Adaptado al nivel del estudiante, con enfoque en los temas que más puntúan en los exámenes finales.'},
+    consultoria:{title:'Consultoría para Empresas',price:'Cotización personalizada · €2.000 – €10.000',desc:'Apoyo profesional en valoración de empresas, due diligence financiero, modelado financiero complejo y análisis estratégico para procesos de M&A, captación de inversión o reestructuración. Propuesta adaptada a tu situación específica.'}
+  };
+
+  function openModal(key){
+    const s=services[key];
+    if(!s)return;
+    document.getElementById('modalTitle').textContent=s.title;
+    document.getElementById('modalPrice').textContent=s.price;
+    document.getElementById('modalDesc').textContent=s.desc;
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(e){if(e.target===document.getElementById('modal'))closeModalBtn()}
+  function closeModalBtn(){
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow='';
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModalBtn()});
+
+  // Form submit — sends via mailto fallback
+  function submitForm(e){
+    e.preventDefault();
+    const name=document.getElementById('fname').value+' '+document.getElementById('lname').value;
+    const email=document.getElementById('email').value;
+    const phone=document.getElementById('phone').value;
+    const service=document.getElementById('service').value;
+    const message=document.getElementById('message').value;
+    const body=`Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone||'No indicado'}\nServicio: ${service}\n\nMensaje:\n${message||'Sin mensaje adicional'}`;
+    const mailtoLink=`mailto:sebastianfinance.trif@gmail.com?subject=Consulta web - ${service}&body=${encodeURIComponent(body)}`;
+    window.location.href=mailtoLink;
+    setTimeout(()=>{
+      document.getElementById('formContent').style.display='none';
+      document.getElementById('formSuccess').style.display='block';
+    },1000);
+  }
+
+  // Smooth active nav
+  const sections=document.querySelectorAll('section[id]');
+  const navLinks=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let current='';
+    sections.forEach(s=>{if(window.scrollY>=s.offsetTop-120)current=s.getAttribute('id')});
+    navLinks.forEach(a=>{
+      a.style.color=a.getAttribute('href')==='#'+current?'var(--gold)':'';
+    });
+  });
+</script>
+</body>
+</html>
